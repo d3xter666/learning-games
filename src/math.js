@@ -3,8 +3,10 @@ window.addEventListener('DOMContentLoaded', function () {
 	var i;
 	var buttonsRef = [];
 	var equationRef = document.getElementById("equation");
-	var messageAnswer = document.getElementById("message-answer");
 	var evaluation;
+	var smilieThink = document.getElementById("smilie-thinking");
+	var smilieWromg = document.getElementById("smilie-wrong");
+	var smilieGood = document.getElementById("smilie-well-done");
 
 	for (i = 0; i <= 10; i++) {
 		buttonsRef.push(document.getElementById("btn" + i));
@@ -15,18 +17,22 @@ window.addEventListener('DOMContentLoaded', function () {
 			var answer = parseInt(this.innerText);
 
 			if (answer === evaluation) {
-				messageAnswer.innerHTML = "Браво! Отговорът е " + answer;
-				messageAnswer.className = "alert alert-success";
+				smilieThink.style.display = "none";
+				smilieWromg.style.display = "none";
+				smilieGood.style.display = "";
+				equationRef.innerText = equationRef.innerText.replace("?", answer);
 
 				setTimeout(makeEquation, 2000);
 			} else {
-				messageAnswer.innerHTML = "Грешка! Опитай отново!";
-				messageAnswer.className = "alert alert-danger";
+				smilieThink.style.display = "none";
+				smilieWromg.style.display = "";
+				smilieGood.style.display = "none";
 			}
 
 			setTimeout(function () {
-				messageAnswer.innerHTML = "&nbsp;"
-				messageAnswer.className = "";
+				smilieThink.style.display = "";
+				smilieWromg.style.display = "none";
+				smilieGood.style.display = "none";
 			}, 1500);
 		});
 	}
