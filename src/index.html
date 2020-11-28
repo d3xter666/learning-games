@@ -1,31 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Лесна математика</title>
 
 	<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<script type="text/javascript" src="math.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
 
-<div id="main">
-	<h1 id="message-answer"></h1>
-	<h3 id="equation"></h3>
-	<div>
-		<button id="btn0">0</button>
-		<button id="btn1">1</button>
-		<button id="btn2">2</button>
-		<button id="btn3">3</button>
-		<button id="btn4">4</button>
-		<button id="btn5">5</button>
-		<button id="btn6">6</button>
-		<button id="btn7">7</button>
-		<button id="btn8">8</button>
-		<button id="btn9">9</button>
-		<button id="btn10">10</button>
+</nav>
+
+<main role="main" class="container">
+	<div class="jumbotron">
+		<h2 id="equation" class="display-3"></h2>
+
+		<div class="row">
+			<div class="col">
+				<button class="btn btn-secondary btn-lg btn-lg" id="btn0">0</button>
+				<button class="btn btn-secondary btn-lg" id="btn1">1</button>
+				<button class="btn btn-secondary btn-lg" id="btn2">2</button>
+				<button class="btn btn-secondary btn-lg" id="btn3">3</button>
+				<button class="btn btn-secondary btn-lg" id="btn4">4</button>
+				<button class="btn btn-secondary btn-lg" id="btn5">5</button>
+			</div>
+			<div class="w-100"></div>
+			<div class="col">
+				<br>
+				<button class="btn btn-secondary btn-lg" id="btn6">6</button>
+				<button class="btn btn-secondary btn-lg" id="btn7">7</button>
+				<button class="btn btn-secondary btn-lg" id="btn8">8</button>
+				<button class="btn btn-secondary btn-lg" id="btn9">9</button>
+				<button class="btn btn-secondary btn-lg" id="btn10">10</button>
+			</div>
+		</div>
+		<br>
+
+		<h3 id="message-answer" class="alert"></h3>
 	</div>
-</div>
-
+</main>
 </body>
 </html>

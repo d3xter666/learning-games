@@ -15,14 +15,19 @@ window.addEventListener('DOMContentLoaded', function () {
 			var answer = parseInt(this.innerText);
 
 			if (answer === evaluation) {
-				messageAnswer.innerHTML = "Браво!";
-				messageAnswer.style.color = "green";
+				messageAnswer.innerHTML = "Браво! Отговорът е " + answer;
+				messageAnswer.className = "alert alert-success";
+
+				setTimeout(makeEquation, 2000);
 			} else {
-				messageAnswer.innerHTML = "Грешка!";
-				messageAnswer.style.color = "red";
+				messageAnswer.innerHTML = "Грешка! Опитай отново!";
+				messageAnswer.className = "alert alert-danger";
 			}
 
-			makeEquation();
+			setTimeout(function () {
+				messageAnswer.innerHTML = "&nbsp;"
+				messageAnswer.className = "";
+			}, 1500);
 		});
 	}
 
