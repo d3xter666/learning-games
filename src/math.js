@@ -3,6 +3,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
 	var leftNumber, rightNumber, sign, answer;
 	var gameLevel = "sum1";
+	var correctAnswersStreak = 0;
+	var longestStreak = 0;
 	var equationRef = document.getElementById("equation");
 	var smilieThink = document.getElementById("smilie-thinking");
 	var smilieWromg = document.getElementById("smilie-wrong");
@@ -31,6 +33,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 		makeSmilies();
 		makeEquation();
+		updateStreaks();
 	})();
 
 	function makeEquation() {
@@ -160,7 +163,6 @@ window.addEventListener('DOMContentLoaded', function () {
 		gameLevel = this.id;
 
 		fillInHeader(this);
-		toggleNavBar();
 		makeSmilies();
 		makeEquation();
 	}
@@ -209,12 +211,24 @@ window.addEventListener('DOMContentLoaded', function () {
 		if (isCorrectAnswer) {
 			makeSmilies("good");
 			fillInEquation(leftNumber, rightNumber, sign, answer);
+			correctAnswersStreak += 1;
+			longestStreak = correctAnswersStreak > longestStreak ? correctAnswersStreak : longestStreak;
 
 			setTimeout(makeEquation, 2000);
 		} else {
+			correctAnswersStreak = 0;
 			makeSmilies("wrong");
 		}
 
+		updateStreaks();
 		setTimeout(makeSmilies, 1500);
+	}
+
+	function updateStreaks() {
+		var streak = document.getElementById("answersStreak");
+		var longStreak = document.getElementById("longestAnswersStreak");
+
+		streak.innerText = correctAnswersStreak;
+		longStreak.innerText = longestStreak;
 	}
 });
