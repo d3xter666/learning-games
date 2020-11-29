@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', function () {
 	"use strict";
 
-	var leftNumber, rightNumber, sign, abswer;
+	var leftNumber, rightNumber, sign, answer;
 	var gameLevel = "sum1";
 	var equationRef = document.getElementById("equation");
 	var smilieThink = document.getElementById("smilie-thinking");
@@ -34,21 +34,29 @@ window.addEventListener('DOMContentLoaded', function () {
 	})();
 
 	function makeEquation() {
+		var lvl = calculateGameLevel(gameLevel);
+
 		while (true) {
 			leftNumber = randBetween(0, 10);
 			rightNumber = randBetween(0, 10);
 			sign = getSign(gameLevel);
-			abswer = evaluateCalculation(leftNumber, rightNumber, sign);
-			if (abswer >= 0 && abswer <= 10) {
+			answer = evaluateCalculation(leftNumber, rightNumber, sign);
+			if (answer >= 0 && answer <= 10) {
 				break;
 			}
 		}
 
-		fillInEquation(leftNumber, rightNumber, sign, questionPlaceholder);
-	}
-
-	function isEquationFulfilled(leftNumber, rightNumber, sign, equals) {
-
+		switch (lvl) {
+			case 2:
+				fillInEquation(leftNumber, questionPlaceholder, sign, answer);
+				break;
+			case 3:
+				fillInEquation(questionPlaceholder, rightNumber, sign, answer);
+				break;
+			default:
+				fillInEquation(leftNumber, rightNumber, sign, questionPlaceholder);
+				break;
+		}
 	}
 
 	function fillInEquation(num1, num2, sign, answer) {
@@ -138,6 +146,16 @@ window.addEventListener('DOMContentLoaded', function () {
 		starsPlaceHolder.innerHTML = stars;
 	}
 
+	function calculateGameLevel(lvl) {
+		var lvlMatch = lvl.match(/[a-z]+([1-9]{1})/);
+
+		if (!lvlMatch || !lvlMatch[1]) {
+			return 1;
+		} else {
+			return parseInt(lvlMatch[1]);
+		}
+	}
+
 	function menuClickListener() {
 		gameLevel = this.id;
 
@@ -172,11 +190,25 @@ window.addEventListener('DOMContentLoaded', function () {
 	}
 
 	function answerButtonListener() {
-		var answer = parseInt(this.innerText);
+		var isCorrectAnswer = false;
+		var proposedAnswer = parseInt(this.innerText);
+		var lvl = calculateGameLevel(gameLevel);
 
-		if (answer === abswer) {
+		switch (lvl) {
+			case 2:
+				isCorrectAnswer = proposedAnswer === rightNumber;
+				break;
+			case 3:
+				isCorrectAnswer = proposedAnswer === leftNumber;
+				break;
+			default:
+				isCorrectAnswer = proposedAnswer === answer;
+				break;
+		}
+
+		if (isCorrectAnswer) {
 			makeSmilies("good");
-			fillInEquation(leftNumber, rightNumber, sign, abswer);
+			fillInEquation(leftNumber, rightNumber, sign, answer);
 
 			setTimeout(makeEquation, 2000);
 		} else {
