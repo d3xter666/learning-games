@@ -101,8 +101,13 @@ window.addEventListener('DOMContentLoaded', function () {
 	}
 
 	function makeSmilies(which) {
+		smilieThink.src = "./assets/thinking-smilie" + randBetween(1, 5) + ".png";
 		smilieThink.style.display = "none";
+
+		smilieWromg.src = "./assets/wrong-answer" + randBetween(1, 4) + ".png";
 		smilieWromg.style.display = "none";
+
+		smilieGood.src = "./assets/well-done" + randBetween(1, 4) + ".png";
 		smilieGood.style.display = "none";
 
 		switch (which) {
