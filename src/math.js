@@ -226,7 +226,24 @@ window.addEventListener('DOMContentLoaded', function () {
 		}
 
 		updateStreaks();
-		setTimeout(makeSmilies, 1500);
+		toggleAnswerButtons(false);
+		setTimeout(function () {
+			makeSmilies();
+			toggleAnswerButtons(true);
+		}, 1500);
+	}
+
+	function toggleAnswerButtons(isActive) {
+		var i, btn;
+		for (i = 0; i <= 10; i++) {
+			btn = document.getElementById("btn" + i);
+
+			if (isActive) {
+				btn.removeAttribute("disabled");
+			} else {
+				btn.setAttribute("disabled", "disabled");
+			}
+		}
 	}
 
 	function updateStreaks() {
