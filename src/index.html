@@ -5,19 +5,46 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Лесна математика</title>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+	<link rel="stylesheet" href="./css/styles.css"/>
 	<script type="text/javascript" src="math.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-
+	<a class="navbar-brand" href="#">Меню</a>
+	<button class="navbar-toggler" type="button">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active"><a class="nav-link" href="#" id="sum1">Събиране <span class="lvl1"></span></a>
+			</li>
+			<li class="nav-item active"><a class="nav-link" href="#" id="sum2">Събиране <span class="lvl2"></span></a>
+			</li>
+			<li class="nav-item active"><a class="nav-link" href="#" id="sub1">Изваждане <span class="lvl1"></span></a>
+			</li>
+			<li class="nav-item active"><a class="nav-link" href="#" id="sub2">Изваждане <span class="lvl2"></span></a>
+			</li>
+			<li class="nav-item active"><a class="nav-link" href="#" id="sub3">Изваждане <span class="lvl3"></span></a>
+			</li>
+			<li class="nav-item active"><a class="nav-link" href="#" id="mix1">Събиране/Изваждане <span
+					class="lvl1"></span></a></li>
+			<li class="nav-item active"><a class="nav-link" href="#" id="mix2">Събиране/Изваждане <span
+					class="lvl2"></span></a></li>
+			<li class="nav-item active"><a class="nav-link" href="#" id="mix3">Събиране/Изваждане <span
+					class="lvl3"></span></a></li>
+		</ul>
+	</div>
 </nav>
 
 <main role="main" class="container">
-	<div style="text-align: center;">
-		<img id="smilie-thinking" src="./assets/thinking-smilie.png" style="width: 300px;"/>
-		<img id="smilie-well-done" src="./assets/well-done.jpg" style="width: 300px; display: none;"/>
-		<img id="smilie-wrong" src="./assets/wrong-answer.jpg" style="width: 300px; display: none;"/>
+	<h1 id="header" class="h4"></h1>
+
+	<div class="smilies">
+		<img id="smilie-thinking" src="./assets/thinking-smilie.png" class="image"/>
+		<img id="smilie-well-done" src="./assets/well-done.jpg" class="image"/>
+		<img id="smilie-wrong" src="./assets/wrong-answer.jpg" class="image"/>
 	</div>
 	<div class="jumbotron">
 		<h2 id="equation" class="display-3"></h2>

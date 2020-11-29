@@ -1,0 +1,13 @@
+.smilies {
+	display: block;
+	text-align: center;
+}
+
+.smilies .image {
+	height: 200px;
+	display: none;
+}
+
+#header {
+	text-align: center;
+}
