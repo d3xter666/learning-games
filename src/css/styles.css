@@ -12,3 +12,7 @@
 #header + .subheader {
 	text-align: center;
 }
+
+#btn-holder .btn {
+	margin: 4px;
+}
