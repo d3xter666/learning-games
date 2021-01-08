@@ -5,6 +5,7 @@ window.addEventListener('DOMContentLoaded', function () {
 	var gameLevel = "sum1";
 	var correctAnswersStreak = 0;
 	var longestStreak = 0;
+	var equationsLimit = 10;
 	var equationRef = document.getElementById("equation");
 	var smilieThink = document.getElementById("smilie-thinking");
 	var smilieWromg = document.getElementById("smilie-wrong");
@@ -27,8 +28,10 @@ window.addEventListener('DOMContentLoaded', function () {
 		'</svg>';
 
 	(function main() {
-		initAnswerListeners();
 		initMenu();
+		initAnswerButtons();
+		initNumberChange();
+
 		fillInHeader(document.getElementById(gameLevel));
 
 		makeSmilies();
@@ -40,11 +43,11 @@ window.addEventListener('DOMContentLoaded', function () {
 		var lvl = calculateGameLevel(gameLevel);
 
 		while (true) {
-			leftNumber = randBetween(0, 10);
-			rightNumber = randBetween(0, 10);
+			leftNumber = randBetween(0, equationsLimit);
+			rightNumber = randBetween(0, equationsLimit);
 			sign = getSign(gameLevel);
 			answer = evaluateCalculation(leftNumber, rightNumber, sign);
-			if (answer >= 0 && answer <= 10) {
+			if (answer >= 0 && answer <= equationsLimit) {
 				break;
 			}
 		}
@@ -81,7 +84,7 @@ window.addEventListener('DOMContentLoaded', function () {
 		} else if (level && level.indexOf("sub") > -1) {
 			return minusSign;
 		} else {
-			return (randBetween(0, 10) % 2 === 0) ? minusSign : plusSign;
+			return (randBetween(0, equationsLimit) % 2 === 0) ? minusSign : plusSign;
 		}
 	}
 
@@ -129,7 +132,10 @@ window.addEventListener('DOMContentLoaded', function () {
 		var toggleMenuButton = document.getElementsByClassName("navbar-toggler")[0];
 
 		Array.prototype.slice.call(items).forEach(function (link) {
-			link.addEventListener("click", menuClickListener);
+			link.addEventListener("click", function () {
+				gameLevel = this.id;
+				reinitGame();
+			});
 			fillInStars(link);
 		});
 
@@ -164,10 +170,9 @@ window.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 
-	function menuClickListener() {
-		gameLevel = this.id;
-
-		fillInHeader(this);
+	function reinitGame() {
+		initAnswerButtons();
+		fillInHeader(document.getElementById(gameLevel));
 		makeSmilies();
 		makeEquation();
 	}
@@ -188,12 +193,56 @@ window.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 
-	function initAnswerListeners() {
-		var i, btn;
-		for (i = 0; i <= 10; i++) {
-			btn = document.getElementById("btn" + i);
-			btn.addEventListener("click", answerButtonListener);
+	function initNumberChange() {
+		var select = document.getElementById("num-limit");
+
+		select.addEventListener("change", function (event) {
+			equationsLimit = parseInt(this.value);
+			reinitGame();
+		});
+	}
+
+	function initAnswerButtons() {
+		var i, btn, btnsContainer, wrappersFill,
+			btnsResponsiveWrappers = [],
+		buttonsPerRow = 5;
+
+		btnsContainer = document.getElementById("btn-holder");
+		btnsContainer.innerHTML = "";
+
+		var numButtons = equationsLimit,
+			numContainers = Math.ceil(numButtons / buttonsPerRow) + 1;
+
+		for (i = 0; i < numContainers; i++) {
+			wrappersFill = document.createElement("div");
+			wrappersFill.className = "col";
+
+			btnsResponsiveWrappers.unshift(wrappersFill);
+			btnsContainer.appendChild(wrappersFill);
+
+			wrappersFill = document.createElement("div");
+			wrappersFill.className = "w-100";
+			btnsContainer.appendChild(wrappersFill);
 		}
+
+		for (i = 0; i <= numButtons; i++) {
+			if (i % buttonsPerRow === 0) {
+				btnsContainer = btnsResponsiveWrappers.pop();
+			}
+
+			btn = document.createElement("button");
+			decorateBtn(btn, i);
+
+			btnsContainer.appendChild(btn);
+		}
+	}
+
+	function decorateBtn(btn, index) {
+		btn.id = "btn" + index;
+		btn.className = "btn btn-secondary btn-lg";
+		btn.innerText = index;
+
+		btn.addEventListener("click", answerButtonListener);
 	}
 
 	function answerButtonListener() {
@@ -235,7 +284,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 	function toggleAnswerButtons(isActive) {
 		var i, btn;
-		for (i = 0; i <= 10; i++) {
+		for (i = 0; i <= equationsLimit; i++) {
 			btn = document.getElementById("btn" + i);
 
 			if (isActive) {
